@@ -2,9 +2,9 @@ package org.enes.lesson20.abstractOrnek;
 
 public class AtesPokemonu extends Pokemon {
 
-    @Override
-    public void ozelSadldiriYap() {
-        System.out.println("Ateş pokemon özel saldırı yapıyor.");
 
+    @Override
+    public void ozelSaldiriYap() {
+        System.out.println("AteÅŸ saldÄ±rÄ±sÄ±");
     }
 }

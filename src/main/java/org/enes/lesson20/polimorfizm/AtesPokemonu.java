@@ -1,5 +1,6 @@
-package org.enes.lesson20.polimorpism;
+package org.enes.lesson20.polimorfizm;
 
 public class AtesPokemonu extends Pokemon {
+
 
 }

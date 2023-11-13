@@ -1,50 +1,36 @@
 package org.enes.lesson19.interfaceDemo2;
 
-public class Kamyon extends Arac implements IKaraAraci,IYukAlanlar,IKamyon{
-    private int tekerSayisi;
+public class Kamyon  extends  Arac implements  IKaraTasiti,IYuk{
 
-    public Kamyon(int hiz, int tekerSayisi) {
-        super(hiz);
-        this.tekerSayisi = tekerSayisi;
+    private int kasaUzunlugu;
+
+
+    public int getKasaUzunlugu() {
+        return kasaUzunlugu;
     }
 
-    public int getTekerSayisi() {
-        return tekerSayisi;
-    }
-
-    public void setTekerSayisi(int tekerSayisi) {
-        this.tekerSayisi = tekerSayisi;
+    public void setKasaUzunlugu(int kasaUzunlugu) {
+        this.kasaUzunlugu = kasaUzunlugu;
     }
 
     @Override
     public String toString() {
         return "Kamyon{" +
-                "tekerSayisi=" + tekerSayisi +
+                "kasaUzunlugu=" + kasaUzunlugu +
                 '}';
     }
 
     @Override
     public void sur() {
-        System.out.println(getClass().getSimpleName()+" sürülüyor.");
-    }
-
-    @Override
-    public void frenYap() {
-        System.out.println(getClass().getSimpleName()+" frenleme yapýyor.");
+        System.out.println(getClass().getSimpleName()+" hareket ediyor");
     }
 
     @Override
     public void yukAl() {
-        System.out.println(getClass().getSimpleName()+" yük alýyor.");
+        System.out.println(getClass().getSimpleName()+" yuk alÄ±yor");
     }
-
     @Override
     public void yukBosalt() {
-        System.out.println(getClass().getSimpleName()+" yük boþaltýyor.");
-    }
-
-    @Override
-    public void dingilAyari() {
-        System.out.println(getClass().getSimpleName()+"un dingilleri ayarlanýyor.");
+        System.out.println(getClass().getSimpleName()+" yuk  bosaltÄ±yor");
     }
 }

@@ -1,5 +1,7 @@
 package org.enes.lesson20.abstractOrnek3;
 
+import java.util.UUID;
+
 public abstract class DataBase {
    private String id;
    private String userName;
@@ -10,7 +12,7 @@ public abstract class DataBase {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = UUID.randomUUID().toString();
     }
 
     public String getUserName() {

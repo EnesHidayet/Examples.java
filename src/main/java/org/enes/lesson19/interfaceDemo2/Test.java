@@ -1,62 +1,69 @@
 package org.enes.lesson19.interfaceDemo2;
 /*
-Bir araç sýnýgýmýz olsun
-Daha sonra uçak otomobil kamyon gemi gibi sýnýflarýmýzýda oluþturalým
-gerekirse bu sýnýflara altsýnýflar veya ust sýnýflar oluþturabilirsiniz
-hýzlanma yavaþlama gibi metotlarýmýz olsun
-kalkýþ yap, iniþ yap, yelken aç limana yanas sur(kara taþýtlarý için geçerli) gibi metotlarýmýz olsun
-bazý araclar yuk taþýyabilsinler bunun için yuk al yuk boþalt metotlarý olsun
-bu uygulamayý oluþtururken özellikle interfacelerden yararlanalým.
- *///getClass().getSimpleName()+bu yapý içinde bulunduðu sýnýfýn ismini yazdýrýr.
-
-import org.w3c.dom.ls.LSOutput;
-
-import static jdk.internal.reflect.Reflection.getCallerClass;
-
+   Bir arac sÄ±nfÄ±mÄ±z olsun
+   Daha sonra ucak otomobil komyon gemi gibi sÄ±nÄ±flarÄ±mÄ±zÄ±da olusturalÄ±m
+   gerekirse bu sÄ±nÄ±flara altsÄ±nÄ±flar veya ust sÄ±nÄ±flar olusturabilirsiniz
+   hÄ±zlanma yavaslama gibi metotlarÄ±mÄ±z olsun
+   kalkÄ±s yap , iniÅŸ yap  yelkenac limana yanas  sur(karatasÄ±tlarÄ± iÃ§in gecerli olsun) gibi metotlarÄ±mÄ±z olsun
+    bazÄ± araclar yuk tasÄ±yabilsinler bunun icin yukal yuk bosalt metotlarÄ± olsun
+    bu uygulamyÄ± olsuturrken Ã¶zellikle interfaclerden yararlanalÄ±m
+ test sÄ±nÄ±fÄ±nda bir yukAlma ve yukVerme metodu yazalÄ±m ;==>
+yukAlma===> kamyon yuk aldÄ± ,kargo ucagÄ± yuk aldÄ±  yuk gemisi yuk aldÄ±
+yukVerme===> kamyon yuku teslim etti ,kargo ucagÄ± yuku teslim etti  yuk gemisi yuku teslim etti
+ */
 public class Test {
-
     public static void main(String[] args) {
-
-        Arac arac=new Arac(50);
-        Otomobil otomobil=new Otomobil(100,"Opel");
-        Gemi gemi=new Gemi(25,100);
-        Ucak ucak=new Ucak(750,4);
-        Kamyon kamyon=new Kamyon(85,12);
-
-        arac.hizlan();
-        otomobil.drifYap();
-
-        ucak.kalkis();
-        kamyon.yukBosalt();
-        kamyon.dingilAyari();
-        gemi.yukAl();
-        gemi.yukBosalt();
-        kamyon.yukBosalt();
+        Gemi gemi=new Gemi();
+        YukGemisi yukGemisi=new YukGemisi();
+        Otomobil otomobil=new Otomobil();
+        Ucak ucak=new Ucak();
+        KargoUcagi kargoUcagi=new KargoUcagi();
+        Kamyon kamyon=new Kamyon();
+        IDenizTasiti denizTasiti=new Gemi();
+        IDenizTasiti denizTasiti2=new YukGemisi();
+        denizTasiti.yelkenAc();
+        denizTasiti2.limanaYanas();
+        gemi.yelkenAc();
+        gemi.hizlan();
+        gemi.limanaYanas();
+        yukGemisi.yelkenAc();
+        yukGemisi.hizlan();
+        yukGemisi.yavasla();
+        yukGemisi.yukAl();
+        yukGemisi.yukBosalt();
+        yukGemisi.limanaYanas();
+        otomobil.sur();
+        otomobil.hizlan();
+        otomobil.yavasla();
+        kargoUcagi.yukAl();
+        kargoUcagi.kalkisYap();
+        ucak.kalkisYap();
+        ucak.inisYap();
+        kamyon.sur();
+        kamyon.hizlan();
+        kamyon.yavasla();
         kamyon.yukAl();
-
-        yukAlin(kamyon);
-        yukTeslimEt(gemi);
-
-        yukAl2(kamyon);
-        yukTeslimEt2(gemi);
+        kamyon.yukBosalt();
 
 
-    }
-
-    static void yukAlin(Object object){
-        System.out.println(object+" yük aldý.");
-    }
-
-    static void yukTeslimEt(Object object){
-        System.out.println(object+" yük aldý.");
+//        yukAlma(otomobil);
+//        yukAlma(gemi);
+//        yukAlma(ucak);
+        yukAlma(yukGemisi);
+        yukAlma(kamyon);
+        yukAlma(kargoUcagi);
+        yukVerme(kargoUcagi);
     }
 
 
-    public static void yukAl2(IYukAlanlar tasit){
+    public  static void yukAlma(IYuk tasit){
         tasit.yukAl();
     }
-    public static void yukTeslimEt2(IYukAlanlar tasit){
+
+
+    public  static void yukVerme(IYuk tasit){
         tasit.yukBosalt();
     }
+
 
 }

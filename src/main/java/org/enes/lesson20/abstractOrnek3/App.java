@@ -1,4 +1,7 @@
 package org.enes.lesson20.abstractOrnek3;
+
+import java.util.Scanner;
+
 /*
 1 Database sýnýfýmýz var
 databse sýnýfý baðlantý için username ve password deðerlerini barýndýrýyor
@@ -31,11 +34,25 @@ eðer mongodb girmiþ ise mongo db yyi yönetsin.
 çalýþtýr metodumuzda menumuz ve iþlem seçimlerimiz olacak.
  */
 public class App {
+    Scanner scanner=new Scanner(System.in);
     public static void main(String[] args) {
-        System.out.println("Hello world");
+       Manager manager=new Manager();
+       manager.uygulamayiCalistir();
+    }
 
-        System.out.println();
-        System.out.println();
-        System.out.println("adasdas");
+    public DataBase dbSec() {
+        System.out.println("Lütfen seçiniz.");
+        System.out.println("1- Mongo DB");
+        System.out.println("2- PostgreSql");
+        int dataSecim = scanner.nextInt();
+
+        if (dataSecim == 1) {
+            DataBase dataBase = new MongoDb();
+            return dataBase;
+        } else {
+            DataBase dataBase = new PostgreSql();
+            return dataBase;
+        }
+
     }
 }

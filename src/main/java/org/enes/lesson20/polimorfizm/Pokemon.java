@@ -1,13 +1,8 @@
-package org.enes.lesson20.abstractOrnek;
+package org.enes.lesson20.polimorfizm;
 
 import java.util.Random;
-/*
-    abstract classlardan newleme işlemi ile bir nesne uretilmez
-    abstract sınıflarda govdeli metotlar  yazılabilir
-    abstract sınıflarda govdesiz abstract metotlar yazilabilir
 
- */
-public  abstract class Pokemon {
+public class Pokemon {
     public int id;
     public String tur;
     public  String ad;
@@ -61,10 +56,10 @@ public  abstract class Pokemon {
 
     //alt+insert
 
-    // govdesiz metotlar alt sınflarda ozelleşebilecek metotlardır
-    public abstract void ozelSaldiriYap();
 
-    //govdeli metotlar ise butun alt sınıflar için aynı işlemi yapan metotlardır
+
+
+
     public void saldir(){
         System.out.println(ad+" adlı pokemon saldırıda bulunuyor");
     }

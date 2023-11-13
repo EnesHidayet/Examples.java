@@ -1,4 +1,4 @@
-package org.enes.lesson20.abstractOrnek;
+package org.enes.lesson20.polimorfizm;
 
 public class SuPokemonu extends Pokemon {
         public  int yuzmeHizi;
@@ -21,8 +21,4 @@ public class SuPokemonu extends Pokemon {
                 this.tur="Su";
         }
 
-        @Override
-        public void ozelSaldiriYap() {
-                System.out.println("Su saldırısı==>" + (guc+suBasincGucu));
-        }
 }

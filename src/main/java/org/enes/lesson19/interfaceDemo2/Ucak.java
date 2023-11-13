@@ -1,28 +1,31 @@
 package org.enes.lesson19.interfaceDemo2;
 
-public class Ucak extends Arac implements IUcak{
-    private int motorSayisi;
+public class Ucak extends  Arac  implements IHavaAraci{
 
-    public Ucak(int hiz, int motorSayisi) {
-        super(hiz);
-        this.motorSayisi = motorSayisi;
+    private int kanatUzunlugu;
+
+    public int getKanatUzunlugu() {
+        return kanatUzunlugu;
     }
 
-    public int getMotorSayisi() {
-        return motorSayisi;
-    }
-
-    public void setMotorSayisi(int motorSayisi) {
-        this.motorSayisi = motorSayisi;
+    public void setKanatUzunlugu(int kanatUzunlugu) {
+        this.kanatUzunlugu = kanatUzunlugu;
     }
 
     @Override
-    public void kalkis() {
-        System.out.println(getClass().getSimpleName()+" kalkýþ yapýyor.");
+    public String toString() {
+        return "Ucak{" +
+                "kanatUzunlugu=" + kanatUzunlugu +
+                '}';
     }
 
     @Override
-    public void inis() {
-        System.out.println(getClass().getSimpleName()+" iniþ yapýyor.");
+    public void kalkisYap() {
+        System.out.println(getClass().getSimpleName()+ " Ucak kalkÄ±yor");
+    }
+
+    @Override
+    public void inisYap() {
+        System.out.println( getClass().getSimpleName()+" Ucak iniyor");
     }
 }

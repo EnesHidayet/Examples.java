@@ -1,4 +1,4 @@
-package org.enes.lesson20.abstractOrnek;
+package org.enes.lesson20.polimorfizm;
 
 
 public class Test {
@@ -10,14 +10,10 @@ public class Test {
             Pokemon pokemon3=new HavaPokemonu();
             SuPokemonu pokemon4= new SuPokemonu("squirtle",2,220,120,1200,698);
 
-         SuPokemonu pokemon5=(SuPokemonu) pokemon2;
+         SuPokemonu   pokemon5=(SuPokemonu) pokemon2;
          System.out.println( pokemon5.yuzmeHizi);
          System.out.println(((SuPokemonu) pokemon2).yuzmeHizi);
          System.out.println(pokemon4.yuzmeHizi);
-
-          //Pokemon pokemon=new Pokemon();
-        pokemon2.ozelSaldiriYap();
-        pokemon1.ozelSaldiriYap();
 
 
             ///
@@ -34,7 +30,7 @@ public class Test {
     }
 
 
-    public static void saldir(ElektirkPokemonu elektirkPokemonu, SuPokemonu suPokemonu){
+    public static void saldir(ElektirkPokemonu elektirkPokemonu,SuPokemonu suPokemonu){
         if (elektirkPokemonu!=null&&suPokemonu==null){
             elektirkPokemonu.saldir();
         } else if (elektirkPokemonu==null&&suPokemonu!=null) {
@@ -43,13 +39,13 @@ public class Test {
     }
 
     public static void saldir2(Object object){
-        if (object instanceof ElektirkPokemonu){
+        if (object instanceof  ElektirkPokemonu){
         ElektirkPokemonu elektirkPokemonu=(ElektirkPokemonu)object;
         elektirkPokemonu.saldir();
         }else if (object instanceof SuPokemonu){
             SuPokemonu suPokemonu=(SuPokemonu) object;
             suPokemonu.saldir();
-        } else if (object instanceof AtesPokemonu) {
+        } else if (object instanceof  AtesPokemonu) {
             AtesPokemonu atesPokemonu=(AtesPokemonu) object;
             atesPokemonu.saldir();
         } else if (object instanceof HavaPokemonu) {

@@ -36,8 +36,11 @@ eðer mongodb girmiþ ise mongo db yyi yönetsin.
 public class App {
     Scanner scanner=new Scanner(System.in);
     public static void main(String[] args) {
+       App app=new App();
        Manager manager=new Manager();
-       manager.uygulamayiCalistir();
+       manager.uygulamayiCalistir(app.dbSec());
+
+
     }
 
     public DataBase dbSec() {

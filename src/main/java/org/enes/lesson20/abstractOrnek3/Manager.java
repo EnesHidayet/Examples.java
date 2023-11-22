@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Manager{
-    App app=new App();
     Scanner scanner = new Scanner(System.in);
 
 
@@ -36,10 +35,10 @@ public class Manager{
     }
 
 
-    public void uygulamayiCalistir() {
+    public void uygulamayiCalistir(DataBase dataBase) {
         login();
 
-        DataBase gelen = app.dbSec();
+        DataBase gelen = dataBase;
 
         int menuSecim = menu();
         do {

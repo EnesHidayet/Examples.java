@@ -48,8 +48,7 @@ public class KullaniciKontrol {
 
         while (true){
             uygulamaMenu();
-            int secim=scanner.nextInt();
-            scanner.nextLine();
+            int secim=Integer.parseInt(scanner.nextLine());
 
             switch (secim){
                 case 1: kayitOl(); break;
@@ -74,7 +73,8 @@ public class KullaniciKontrol {
         System.out.println("***********- Kullanýcý Menüsü -***********");
         System.out.println("1- Sepeti göster");
         System.out.println("2- Ürün ekle");
-        System.out.println("3- Çýkýþ");
+        System.out.println("3- Alýþveriþi Tamamla");
+        System.out.println("4- Çýkýþ");
         System.out.println("Ýþleminizi seçiniz...");
     }
 
@@ -83,22 +83,33 @@ public class KullaniciKontrol {
         int secim;
         do {
             kullaniciMenusu();
-            secim= scanner.nextInt();
+            secim= Integer.parseInt(scanner.nextLine());
             switch (secim){
                 case 1: sepetiGoster();
                     break;
                 case 2:urunEkle();
                     break;
-                case 3:
-                    System.out.println("Üst menüye dönülüyor...");
+                case 3:alisverisiTamamla();
+
+                case 4:System.out.println("Üst menüye dönülüyor...");
                     break;
             }
-        }while (secim!=3);
+        }while (secim!=4);
+    }
+
+    public void alisverisiTamamla(){
+        System.out.println("Alýþveriþi tamamlamak istiyor musunuz?E/H");
+        String karar=scanner.nextLine();
+        if (karar.equalsIgnoreCase("E")){
+            System.out.println("Alýþveriþiniz tamamlandý.");
+            aktifKullanici.getSepet().getUrunler().clear();
+            aktifKullanici.getSepet().setToplam(0);
+        }else System.out.println("Alýþveriþinize devam edebilirsiniz.");
     }
 
 //    public void kullaniciMenusuBaslat2(Kullanici kullanici){
 //        kullaniciMenusu();
-//        int secim= scanner.nextInt();
+//        int secim= Integer.parseInt(scanner.nextLine());
 //        do {
 //            switch (secim){
 //                case 1: sepetiGoster2(kullanici);
@@ -162,14 +173,17 @@ public class KullaniciKontrol {
 
     public void sepetiGoster(){
 //        aktifKullanici.setSepet(new Sepet()); veya kullanýcý constructorýnda newleme yapýlabilirdi.
-
+         double toplam=0;
         if (aktifKullanici.getSepet().getUrunler().isEmpty()){
             System.out.println("Sepetiniz boþ");
         }else {
             for (EUrun urun:aktifKullanici.getSepet().getUrunler()){
                 System.out.println(urun);
+                toplam+=urun.getPrice();
+                aktifKullanici.getSepet().setToplam(toplam);
             }
         }
+        System.out.println("Sepetinizin toplam tutarý...:"+toplam);
     }
 
 //    public void sepetiGoster2(Kullanici kullanici){
@@ -186,7 +200,7 @@ public class KullaniciKontrol {
         EUrun [] urunler=EUrun.values();
 
         for (EUrun urun:urunler){
-            System.out.println((urun.ordinal()+1)+". ürün "+urun);
+            System.out.println((urun.ordinal()+1)+". ürün "+urun+" fiyatý "+urun.getPrice());
 
         }
         System.out.println("Çýkýþ için 0 a basýn.");
@@ -196,7 +210,7 @@ public class KullaniciKontrol {
 
         urunListesi();
         int secim;
-        while((secim=scanner.nextInt())!=0){
+        while((secim=Integer.parseInt(scanner.nextLine()))!=0){
             urunListesi();
             EUrun urun=EUrun.values()[secim-1];
             aktifKullanici.getSepet().getUrunler().add(urun);

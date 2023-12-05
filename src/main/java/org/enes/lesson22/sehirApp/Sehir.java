@@ -1,6 +1,6 @@
 package org.enes.lesson22.sehirApp;
 
-public class Sehir {
+public class Sehir{
     private String isim;
     private String  plaka;
     private long nufus;

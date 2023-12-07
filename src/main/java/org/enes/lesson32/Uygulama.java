@@ -28,6 +28,19 @@ public class Uygulama {
         this.liman.getYukler()[0]=new Yuk("Hurda",11750,new MyDate(System.currentTimeMillis()-GUN,EGun.CARSAMBA));
         this.liman.getYukler()[1]=new Yuk("Buðday",55000,new MyDate(System.currentTimeMillis()-2*GUN,EGun.SALI));
     }
+
+    public MyDate tarihBelirleMetodu(MyDate date){
+
+        if (date.getKabulGunu()==EGun.CUMARTESI || date.getKabulGunu()==EGun.PAZAR) {
+            throw new LimanException(ErrorType.MESAI_DISI_GUN_HATASI);
+        }else if (date.getKabulTarihi()!=System.currentTimeMillis() || date.getKabulGunu()!=EGun.CUMA){
+            throw new LimanException(ErrorType.TARIH_BUGUN_DEGIL_HATASI);
+        }
+
+        System.out.println("Zaman uygun.");
+        return date;
+    }
+
     public void yukYeriSec(Yuk yuk){
         System.out.println("Boþ Yerler");
         for (int i = 0; i <liman.getYukler().length ; i++) {
@@ -86,8 +99,13 @@ public class Uygulama {
 
     public static void main(String[] args) {
         Uygulama uygulama=new Uygulama();
-        int secim=uygulama.yukYeriSec3(new Yuk("Yuk3",uygulama.agirlikBelirle(),new MyDate(System.currentTimeMillis(),EGun.PERSEMBE)));
-        System.out.println(secim);
+//        int secim=uygulama.yukYeriSec3(new Yuk("Yuk3",uygulama.agirlikBelirle(),uygulama.tarihBelirleMetodu(new MyDate(System.currentTimeMillis(),EGun.CUMA))));
+        Liman liman1=new Liman();
+        liman1.getYukler()[3]=new Yuk("Yuk3",uygulama.agirlikBelirle(),uygulama.tarihBelirleMetodu(new MyDate(System.currentTimeMillis(),EGun.PERSEMBE)));
+        for (int i=0;i<liman1.getYukler().length;i++){
+            System.out.println(liman1.getYukler()[i]);
+        }
+//        System.out.println(secim);
     }
 }
 

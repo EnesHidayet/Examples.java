@@ -123,7 +123,7 @@ Scanner scanner=new Scanner(System.in);
     }
 
     public void animelerinToplamHasilati(){
-        double x = filmler.stream().filter(f -> f.getTur().equals(ETur.ANIME)).mapToDouble(f -> f.getHasilat()).sum();
+        long x = filmler.stream().filter(f -> f.getTur().equals(ETur.ANIME)).mapToLong(f -> f.getHasilat()).sum();
         System.out.println(x);
     }
 
@@ -131,6 +131,19 @@ Scanner scanner=new Scanner(System.in);
         int x= (int) filmler.stream().filter(f->f.getYonetmen().getIsim().equals(yonetmen)).distinct().count();
         return x;
     }
+
+    public void birUlkedeEnCokFilmCekenYonetmen(String ulke){
+        Map<String,Long> yonetmenFilmSayilari=filmler.stream().map(Film::getYonetmen).collect(Collectors.groupingBy(Yonetmen::getUlke,Collectors.counting()));
+        yonetmenFilmSayilari.forEach((k,v)-> System.out.println(k+"-"+v));
+
+    }
+
+
+//    public void yonetmenlerleUlkeleriMaple(){
+//        TreeMap<String,List<Yonetmen>> yonetmenler=filmler.stream().map(Film::getYonetmen).
+//        collect(Collectors.groupingBy(Yonetmen::getUlke,TreeMap::new,Collectors.toList()));
+//        yonetmenler.forEach((k,v)-> System.out.println(k+" - "+v));
+//    }
 
 
 
@@ -146,7 +159,10 @@ Scanner scanner=new Scanner(System.in);
 //        uygulama.turuneGoreOrtPuan(ETur.ANIME);
 //        uygulama.filmleriBelirliAraliktakiHasilataGore(500000,999999);
 //        uygulama.animelerinToplamHasilati();
-//        System.out.println(uygulama.yonetmeninFilmSayisi("Miyazaki"));
+        System.out.println(uygulama.yonetmeninFilmSayisi("Miyazaki"));
+//        uygulama.yonetmenlerleUlkeleriMaple();
+
+//        uygulama.birUlkedeEnCokFilmCekenYonetmen("Türkiye");
 
         /**
          * Son 3 tanesini yapamadým.

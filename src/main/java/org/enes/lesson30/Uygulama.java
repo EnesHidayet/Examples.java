@@ -109,15 +109,48 @@ Scanner scanner=new Scanner(System.in);
         tureGoreFilm.entrySet().forEach(System.out::println);
     }
 
+    public void puanaGoreSirala(){
+        filmler.stream().sorted(Comparator.comparing(f->f.getPuan())).skip(5).forEach(System.out::println);
+    }
+
+    public void turuneGoreOrtPuan(ETur tur){
+        Double collect = filmler.stream().filter(f -> f.getTur().equals(tur)).collect(Collectors.averagingDouble(f->f.getPuan()));
+        System.out.println(collect);
+
+    }
+    public void filmleriBelirliAraliktakiHasilataGore(long baslangic,long bitis){
+        filmler.stream().filter(f->(f.getHasilat()<bitis &&f.getHasilat()>baslangic)).forEach(System.out::println);
+    }
+
+    public void animelerinToplamHasilati(){
+        double x = filmler.stream().filter(f -> f.getTur().equals(ETur.ANIME)).mapToDouble(f -> f.getHasilat()).sum();
+        System.out.println(x);
+    }
+
+    public int yonetmeninFilmSayisi(String yonetmen){
+        int x= (int) filmler.stream().filter(f->f.getYonetmen().getIsim().equals(yonetmen)).distinct().count();
+        return x;
+    }
+
 
 
     public static void main(String[] args) {
         Uygulama uygulama=new Uygulama();
         uygulama.baslangicVerisiOlustur();
-        uygulama.yuksekPuanlilar();
-        uygulama.ulkeyeGoreYonetmenler();
-        uygulama.hasilatiEnYuksekFilm();
-        uygulama.turuneGoreFilmler();
-        uygulama.turuneGoreHasilatiEnYuksekFilm();
+//        uygulama.yuksekPuanlilar();
+//        uygulama.ulkeyeGoreYonetmenler();
+//        uygulama.hasilatiEnYuksekFilm();
+//        uygulama.turuneGoreFilmler();
+//        uygulama.turuneGoreHasilatiEnYuksekFilm();
+//        uygulama.puanaGoreSirala();
+//        uygulama.turuneGoreOrtPuan(ETur.ANIME);
+//        uygulama.filmleriBelirliAraliktakiHasilataGore(500000,999999);
+//        uygulama.animelerinToplamHasilati();
+//        System.out.println(uygulama.yonetmeninFilmSayisi("Miyazaki"));
+
+        /**
+         * Son 3 tanesini yapamadým.
+         */
+
     }
 }

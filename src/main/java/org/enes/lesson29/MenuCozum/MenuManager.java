@@ -1,7 +1,5 @@
 package org.enes.lesson29.MenuCozum;
 
-import org.enes.Odev.Manager;
-
 import java.util.*;
 import java.util.stream.Collectors;
 

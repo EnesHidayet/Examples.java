@@ -1,6 +1,4 @@
-package org.enes.Odev;
-
-import org.enes.lesson23.StackOrnek;
+package org.enes.MenuOdevi;
 
 import java.util.ArrayList;
 import java.util.List;

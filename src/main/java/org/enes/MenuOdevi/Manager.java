@@ -1,4 +1,4 @@
-package org.enes.Odev;
+package org.enes.MenuOdevi;
 
 import java.util.Random;
 

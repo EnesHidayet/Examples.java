@@ -1,5 +1,8 @@
 package org.enes.lesson32;
 
+import java.util.Locale;
+import java.util.Optional;
+
 /**
  * 1- Bir limanýnýz olacak bu limanda yük yerleþtirilecek alanlar olacak limanda yük yerleþtirilecek alanlar liman oluþtururken belirlenebilir veya standart her liman için
  * 10 adet yük yeri olabilir.Her yükün bir aðýrlýðý kabul tarihi olacak (String)
@@ -16,8 +19,12 @@ package org.enes.lesson32;
  * olduðunu belirten bir hata fýrlatalým.
  *
  * ÖDEV tarihBelileMetodu-->
- * a) girilen tarih bugünden öncemi önce ise bir hata fýrlatacaðýz
+ * 4-a) girilen tarih bugünden öncemi önce ise bir hata fýrlatacaðýz
  * b) Cumartesi ve pazar mesai saatleri dýþýndadýr eðer
+ *
+ * 5- Yuk oluþtur metodu bize optional yük dönecek
+ * tarhi belirle aðýrlýk belirle metotlarý kullanýlacak.
+ * once yük yeri sonra aðýrlýk sonra tarih eðer bunlarda hata yoksa yük oluþturulup geri dönülecek hata varsa boþ optional dönülecek
  */
 
 public class Uygulama {
@@ -29,16 +36,59 @@ public class Uygulama {
         this.liman.getYukler()[1]=new Yuk("Buðday",55000,new MyDate(System.currentTimeMillis()-2*GUN,EGun.SALI));
     }
 
-    public MyDate tarihBelirleMetodu(MyDate date){
+//    public MyDate tarihBelirleMetodu(MyDate date){
+//
+//        if (date.getKabulGunu()==EGun.CUMARTESI || date.getKabulGunu()==EGun.PAZAR) {
+//            throw new LimanException(ErrorType.MESAI_DISI_GUN_HATASI);
+//        }else if (date.getKabulTarihi()!=System.currentTimeMillis() || date.getKabulGunu()!=EGun.CUMA){
+//            throw new LimanException(ErrorType.TARIH_BUGUN_DEGIL_HATASI);
+//        }
+//
+//        System.out.println("Zaman uygun.");
+//        return date;
+//    }
 
-        if (date.getKabulGunu()==EGun.CUMARTESI || date.getKabulGunu()==EGun.PAZAR) {
-            throw new LimanException(ErrorType.MESAI_DISI_GUN_HATASI);
-        }else if (date.getKabulTarihi()!=System.currentTimeMillis() || date.getKabulGunu()!=EGun.CUMA){
-            throw new LimanException(ErrorType.TARIH_BUGUN_DEGIL_HATASI);
+    public Optional<Yuk> yukOlustur(){
+        Yuk yuk = null;
+        try {
+             yuk=new Yuk(Utility.stringDegerAl("Yükün ismini giriniz."), agirlikBelirle(), tarihBelirleMetodu2());
+        }catch (Exception e){
+            System.out.println("Hata...:"+e.toString());
         }
+        return Optional.ofNullable(yuk);
+    }
 
-        System.out.println("Zaman uygun.");
-        return date;
+    public MyDate tarihBelirleMetodu2(){
+        long bugun=System.currentTimeMillis();
+        int gunSayisi=Utility.intDegerAl("Lütfen tarih giriniz + veya - kullanarak kac gun önce veeya sonra iþlem yapmak istediðinizi griniz.");
+//        String stringGun=Utility.stringDegerAl("Lütfen gün degerini giriniz.").toUpperCase(Locale.ENGLISH);
+//        EGun gun=EGun.valueOf(stringGun);
+        long tarih=bugun+(gunSayisi*GUN);
+        EGun gun=gunBelirle();
+        if (tarih<bugun){
+            throw new LimanException(ErrorType.GECERSIZ_KABUL_TARIHI);
+        }
+        if (gun.equals(EGun.CUMARTESI) || gun.equals(EGun.PAZAR)){
+            throw new LimanException(ErrorType.MESAI_DISI_GUN_HATASI);
+        }
+        return new MyDate(tarih,gun);
+    }
+
+    public EGun gunBelirle(){
+        boolean kontrol=false;
+        EGun gun = null;
+        do {
+            String stringGun=Utility.stringDegerAl("Lütfen gün degerini giriniz.").toUpperCase(Locale.ENGLISH);
+            try {
+                gun=EGun.valueOf(stringGun);
+                kontrol=false;
+            }catch (IllegalArgumentException e){
+                System.out.println("Hata oluþtu."+e.toString());
+                kontrol=true;
+            }
+
+        }while (kontrol);
+        return gun;
     }
 
     public void yukYeriSec(Yuk yuk){
@@ -77,16 +127,33 @@ public class Uygulama {
         }
     }
 
-    public int yukYeriSec3(Yuk yuk){
-        int index=Utility.intDegerAl("Lütfen bir yuk alaný seciniz");
+    public int yukYeriSec3(){
+        boolean kontrol=false;
+        int index=-1;
+        do {
 
-            if (index>liman.getAlanSayisi() || index<0){
-                throw new LimanException(ErrorType.YUK_YERI_SINIR_HATASI);
+            index=Utility.intDegerAl("Lütfen bir yuk alaný seciniz");
+            try {
+                kontrol=indexKontrol(index);
+            }catch (LimanException e){
+                System.out.println(kontrol);
+                System.out.println(e.toString());
             }
-            if (liman.getYukler()[index]!=null){
-                throw new LimanException(ErrorType.DOLU_YER_SECIMI);
-            }
+
+
+        }while (!kontrol);
+
         return index;
+    }
+
+    public boolean indexKontrol(int index){
+        if (index>liman.getAlanSayisi() || index<0){
+            throw new LimanException(ErrorType.YUK_YERI_SINIR_HATASI);
+        }
+        if (liman.getYukler()[index]!=null){
+            throw new LimanException(ErrorType.DOLU_YER_SECIMI);
+        }
+        return true;
     }
 
     public double agirlikBelirle(){
@@ -97,15 +164,44 @@ public class Uygulama {
         return agirlik;
     }
 
+    /**
+     * 6- Yuk kabul metodu
+     * önce bir yük yeri seçimi yapýcaz yükyerisec3 ile
+     * daha sonra bir yuk oluþturacaðýz yükolustur ile
+     * eðer bu yük var ise yükümüz kabbul olmuþtur eðer bu yük yok ise yükünüz kabul olmamýþtýr çýktýsý verelim.
+     */
+
+    public void yukKabul(){
+        int index=-1;
+        try {
+            index=yukYeriSec3();
+        }catch (LimanException e){
+            System.out.println("Hata oluþtu...:"+e.toString());
+        }
+        Optional<Yuk> yeniYuk=yukOlustur();
+        if (yeniYuk.isEmpty()){
+            System.out.println("Yükünüz kabul olmamýþtýr");
+        }else {
+            System.out.println("Yükünüz kabul olmuþtur.-->"+yeniYuk.get().getIsim());
+            liman.getYukler()[index]=yeniYuk.get();
+        }
+    }
+
+
+
     public static void main(String[] args) {
         Uygulama uygulama=new Uygulama();
 //        int secim=uygulama.yukYeriSec3(new Yuk("Yuk3",uygulama.agirlikBelirle(),uygulama.tarihBelirleMetodu(new MyDate(System.currentTimeMillis(),EGun.CUMA))));
         Liman liman1=new Liman();
-        liman1.getYukler()[3]=new Yuk("Yuk3",uygulama.agirlikBelirle(),uygulama.tarihBelirleMetodu(new MyDate(System.currentTimeMillis(),EGun.PERSEMBE)));
-        for (int i=0;i<liman1.getYukler().length;i++){
-            System.out.println(liman1.getYukler()[i]);
-        }
+//        liman1.getYukler()[3]=new Yuk("Yuk3",uygulama.agirlikBelirle(),uygulama.tarihBelirleMetodu2());
 //        System.out.println(secim);
+//        Optional<Yuk> yuk=uygulama.yukOlustur();
+//        System.out.println(yuk);
+        uygulama.yukKabul();
+        uygulama.yukKabul();
+        uygulama.yukKabul();
+
+
     }
 }
 
